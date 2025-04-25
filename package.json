@@ -1,5 +1,5 @@
 {
-  "name": "serbian-transliteration",
+  "name": "@pr00x/serbian-transliteration",
   "version": "1.0.0",
   "description": "A lightweight Serbian transliteration library for converting between Cyrillic and Latin scripts.",
   "license": "MIT",

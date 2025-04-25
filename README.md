@@ -26,8 +26,8 @@ npm install @pr00x/serbian-transliteration
 ## 🚀 Primer korišćenja
 
 ```js
-import SerbianTransliteration from 'serbian-transliteration'; // ESM syntax
-// const SerbianTransliteration = require('serbian-transliteration'); // CommonJS syntax
+import SerbianTransliteration from '@pr00x/serbian-transliteration'; // ESM syntax
+// const SerbianTransliteration = require('@pr00x/serbian-transliteration'); // CommonJS syntax
 
 let result;
 
