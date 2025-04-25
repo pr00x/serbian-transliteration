@@ -1,0 +1,49 @@
+{
+  "name": "serbian-transliteration",
+  "version": "1.0.0",
+  "description": "A lightweight Serbian transliteration library for converting between Cyrillic and Latin scripts.",
+  "license": "MIT",
+  "author": {
+    "name": "pr00x (Jovan Bogovac)",
+    "url": "https://github.com/pr00x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pr00x/serbian-transliteration.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pr00x/serbian-transliteration/issues"
+  },
+  "homepage": "https://github.com/pr00x/serbian-transliteration#readme",
+  "keywords": [
+    "serbian",
+    "transliteration",
+    "cyrillic",
+    "latin",
+    "convert",
+    "serbia",
+    "text",
+    "script",
+    "language",
+    "serbian-cyrillic",
+    "serbian-latin"
+  ],
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "sideEffects": false,
+  "scripts": {
+    "test": "node test/serbian-transliteration.test.js",
+    "build": "tsc && rollup -c"
+  },
+  "exports": {
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "rollup": "^2.79.2"
+  }
+}
