@@ -1,6 +1,18 @@
 # Serbian Transliteration — Biblioteka za transkripciju srpskog pisma
 
+[![npm version](https://img.shields.io/npm/v/@pr00x/serbian-transliteration.svg)](https://www.npmjs.com/package/@pr00x/serbian-transliteration)
+[![GitHub](https://img.shields.io/badge/github-pr00x/serbian--transliteration-blue?logo=github)](https://github.com/pr00x/serbian-transliteration)
+
 `serbian-transliteration` je lagana i brza JavaScript/TypeScript biblioteka za transkripciju srpskog teksta između ćirilice i latinice. Omogućava jednostavno konvertovanje rečenica ili reči, pogodna je za Node.js i browser okruženja, i ne zahteva dodatne biblioteke.
+
+## ☰ Sadržaj
+- [Karakteristike](#karakteristike)
+- [Instalacija](#instalacija)
+- [Primer korišćenja](#primer-korišćenja)
+- [API](#api)
+- [Dokumentacija](#dokumentacija)
+- [Doprinos](#doprinos)
+- [Licenca](#licenca)
 
 ---
 
@@ -42,8 +54,13 @@ console.log(result); // Срећно, желим ти леп дан!
 result = SerbianTransliteration.autoTransliterate('Добар dan!');
 console.log(result); // Dobar dan!
 
-result = SerbianTransliteration.autoTransliterate('Dobar дан!');
-console.log(result); // Добар дан!
+result = SerbianTransliteration.autoTransliterate('Dobar dan, dobri {ljudi}!', {
+    skip: {
+        words: ['dobri'],
+        markers: ['{', '}']
+    }
+});
+console.log(result); // Добар дан, dobri ljudi!
 
 // Prepoznavanje pisma
 const isCyrillic = SerbianTransliteration.isCyrillic('Само ћирилица');
@@ -97,25 +114,64 @@ try {
 | `toCyrillic(text, options?)` | Pretvara srpski tekst sa latinice na ćirilicu, uz opcione skip parametre |
 | `isCyrillic(text)`         | Vraća `true` ako je većina teksta na ćirilici                  |
 | `isLatin(text)`            | Vraća `true` ako je većina teksta na latinici                  |
-| `autoTransliterate(text)`  | Automatski detektuje pismo i prevodi tekst u suprotno pismo    |
+| `autoTransliterate(text, options?)`  | Automatski detektuje pismo i prevodi tekst u suprotno pismo, uz opcione skip parametre za ćirilicu    |
 ---
 
 ## 📚 Dokumentacija
 
-- **toLatin(text: string): string**  
+- **toLatin(text: string): string**
   Pretvara srpski tekst iz ćirilice u latinicu.
 
-- **toCyrillic(text: string, options?: ToCyrillicOptions): string**  
+- **toCyrillic(text: string, options?: ToCyrillicOptions): string**
   Pretvara srpski tekst iz latinice u ćirilicu. Podržava opcije za preskakanje reči i regiona.
 
-- **isCyrillic(text: string): boolean**  
+- **isCyrillic(text: string): boolean**
   Vraća `true` ako je većina teksta na ćirilici, u suprotnom `false`.
 
-- **isLatin(text: string): boolean**  
+- **isLatin(text: string): boolean**
   Vraća `true` ako je većina teksta na latinici, u suprotnom `false`.
 
-- **autoTransliterate(text: string): string**  
-  Automatski detektuje pismo i prevodi tekst u suprotno pismo (ćirilica ↔ latinica).
+- **autoTransliterate(text: string, options?: ToCyrillicOptions): string**
+  Automatski detektuje pismo i prevodi tekst u suprotno pismo (ćirilica ↔ latinica). Podržava opcije za preskakanje reči i regiona za ćirilicu.
+
+### ⚙️ ToCyrillicOptions
+
+Opcioni objekat za funkcije `toCyrillic` i `autoTransliterate` koji omogućava precizno kontrolisanje šta će biti preskočeno tokom transkripcije.
+
+```typescript
+/**
+ * Opcije za preskakanje reči ili regiona prilikom transkripcije u ćirilicu.
+ */
+export type ToCyrillicSkipOptions = {
+    /** Da li je razlikovanje velikih/malih slova bitno pri poređenju reči i markera */
+    caseSensitive?: boolean;
+    /** Niz reči koje se neće transkriptovati */
+    words?: string[];
+    /** Par stringova (otvarajući i zatvarajući marker) koji označavaju deo teksta koji se preskače */
+    markers?: [string, string];
+};
+
+/**
+ * Glavni objekat sa opcijama za ćiriličnu transkripciju.
+ */
+export type ToCyrillicOptions = {
+    /** Opcije za preskakanje reči ili regiona */
+    skip?: ToCyrillicSkipOptions;
+};
+```
+
+**Primer:**
+```js
+SerbianTransliteration.toCyrillic(
+  'Neki <skip>deo</skip> se ne menja.',
+  { skip: { words: ['Wikipedia'], markers: ['<skip>', '</skip>'], caseSensitive: false } }
+);
+```
+
+**Objašnjenje polja:**
+- `skip.words`: Reči (stringovi) koje se neće transkriptovati (npr. imena brendova).
+- `skip.markers`: Par stringova koji označavaju deo teksta koji treba preskočiti (npr. kod, oznake, tagovi - [`'<skip>'`, `'</skip>'`] podrazumevano).
+- `skip.caseSensitive`: Da li poređenje reči/markera razlikuje velika/mala slova (`true` podrazumevano).
 
 ---
 

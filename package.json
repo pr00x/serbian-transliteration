@@ -1,6 +1,6 @@
 {
   "name": "@pr00x/serbian-transliteration",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A lightweight Serbian transliteration library for converting between Cyrillic and Latin scripts.",
   "license": "MIT",
   "author": {
@@ -26,7 +26,8 @@
     "script",
     "language",
     "serbian-cyrillic",
-    "serbian-latin"
+    "serbian-latin",
+    "transkripcija"
   ],
   "type": "module",
   "main": "dist/index.cjs",

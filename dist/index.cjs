@@ -223,13 +223,14 @@ class SerbianTransliteration {
      * Automatically detects the script of the input text (Latin or Cyrillic) and converts it to the opposite script.
      *
      * @param {string} text - Text in either Serbian Latin or Cyrillic script.
+     * @param {ToCyrillicOptions} [options] - Optional settings for skipping words or regions (if the text is transliterated to Cyrillic).
      * @returns {string} The converted text in the opposite script.
      *
      * @example
      * SerbianTransliteration.autoTransliterate("Dobar dan") // "Добар дан"
      * SerbianTransliteration.autoTransliterate("Добар дан") // "Dobar dan"
      */
-    static autoTransliterate(text) {
+    static autoTransliterate(text, options) {
         if (!text) {
             return '';
         }
@@ -237,7 +238,7 @@ class SerbianTransliteration {
             return this.toLatin(text);
         }
         else if (this.isLatin(text)) {
-            return this.toCyrillic(text);
+            return this.toCyrillic(text, options);
         }
         return text;
     }

@@ -260,6 +260,16 @@ function runTests() {
             SerbianTransliteration.autoTransliterate('Dobar dan Добар') === 'Добар дан Добар',
             'Auto transliterate mixed content with more Latin'
         );
+
+        assert(
+            SerbianTransliteration.autoTransliterate('Dobar dan, dobri {ljudi}!', {
+                skip: {
+                    words: ['dobri'],
+                    markers: ['{', '}']
+                }
+            }) === 'Добар дан, dobri ljudi!',
+            'Auto transliterate mixed content with more Latin'
+        );
     }
 
     // Run all tests
