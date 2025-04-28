@@ -5,18 +5,20 @@
 
 `serbian-transliteration` je lagana i brza JavaScript/TypeScript biblioteka za transkripciju srpskog teksta između ćirilice i latinice. Omogućava jednostavno konvertovanje rečenica ili reči, pogodna je za Node.js i browser okruženja, i ne zahteva dodatne biblioteke.
 
-## ☰ Sadržaj
+## Sadržaj
 - [Karakteristike](#karakteristike)
 - [Instalacija](#instalacija)
 - [Primer korišćenja](#primer-korišćenja)
 - [API](#api)
 - [Dokumentacija](#dokumentacija)
+  - [ToCyrillicOptions](#️-tocyrillicoptions)
+- [Autor](#autor)
 - [Doprinos](#doprinos)
 - [Licenca](#licenca)
 
 ---
 
-## ✨ Karakteristike
+## Karakteristike
 
 - 🔄 Brzo i precizno konvertovanje između ćirilice i latinice
 - 📝 Podržava kompletnu srpsku abecedu i azbuku, uključujući digrafe (lj, nj, dž, đ, č, ć, š, ž)
@@ -26,7 +28,7 @@
 
 ---
 
-## 📦 Instalacija
+## Instalacija
 
 Instalirajte paket putem npm-a:
 ```bash
@@ -35,7 +37,7 @@ npm install @pr00x/serbian-transliteration
 
 ---
 
-## 🚀 Primer korišćenja
+## Primer korišćenja
 
 ```js
 import SerbianTransliteration from '@pr00x/serbian-transliteration'; // ESM syntax
@@ -107,7 +109,7 @@ try {
 
 ---
 
-## 🛠️ API
+## API
 | Funkcija                   | Opis                                                           |
 |----------------------------|----------------------------------------------------------------|
 | `toLatin(text)`            | Pretvara srpski tekst sa ćirilice na latinicu                  |
@@ -117,7 +119,7 @@ try {
 | `autoTransliterate(text, options?)`  | Automatski detektuje pismo i prevodi tekst u suprotno pismo, uz opcione skip parametre za ćirilicu    |
 ---
 
-## 📚 Dokumentacija
+## Dokumentacija
 
 - **toLatin(text: string): string**
   Pretvara srpski tekst iz ćirilice u latinicu.
@@ -175,20 +177,20 @@ SerbianTransliteration.toCyrillic(
 
 ---
 
-## 👨‍💻 Autor
+## Autor
 
 [@pr00x (Jovan Bogovac)](https://github.com/pr00x)
 
 ---
 
-## 🤝 Doprinos
+## Doprinos
 
 Svi predlozi i poboljšanja su dobrodošli!  
 Otvorite pull request ili prijavite problem putem GitHub Issues.
 
 ---
 
-## 📝 Licenca
+## Licenca
 
 Ovaj projekat je licenciran pod MIT licencom.  
 Pogledajte `LICENSE` fajl za više detalja.
