@@ -128,8 +128,8 @@ export default class SerbianTransliteration {
     private static handleDigraphExceptions(text: string): string {
         let result: string = text;
 
-        for(const [digraph, exceptionPatterns] of Object.entries(this.digraphExceptionPatterns)) {
-            for(const pattern of exceptionPatterns) {
+        for (const [digraph, exceptionPatterns] of Object.entries(this.digraphExceptionPatterns)) {
+            for (const pattern of exceptionPatterns) {
                 result = result.replace(pattern, (match) => 
                     match.replace(
                         new RegExp(digraph, 'g'),
@@ -153,13 +153,13 @@ export default class SerbianTransliteration {
      * SerbianTransliteration.toLatin("Добар дан") // "Dobar dan"
      */
     public static toLatin(text: string): string {
-        if(!text) {
+        if (!text) {
             return '';
         }
 
         let result: string = '';
 
-        for(const char of text) {
+        for (const char of text) {
             result += this.cyrillic2LatinMap[char] ?? char;
         }
 
@@ -186,7 +186,7 @@ export default class SerbianTransliteration {
      * SerbianTransliteration.toCyrillic("ovo je <skip>some code</skip>", { skip: { markers: ["<skip>", "</skip>"] } }) // "ово је some code"
      */
     public static toCyrillic(text: string, options?: ToCyrillicOptions): string {
-        if(!text) {
+        if (!text) {
             return '';
         }
 
@@ -202,7 +202,7 @@ export default class SerbianTransliteration {
         let workingText: string = text;
 
         // Ensure the opening and closing markers are not the same
-        if(handleSkipMarkers && skip.markers![0] === skip.markers![1]) {
+        if (handleSkipMarkers && skip.markers![0] === skip.markers![1]) {
             throw new Error('The opening and closing markers cannot be the same.');
         }
 
@@ -214,7 +214,7 @@ export default class SerbianTransliteration {
         // [Handle skip markers (e.g., <skip>...</skip>)]
         const markerReplacement: string[] = [];
 
-        if(handleSkipMarkers) {
+        if (handleSkipMarkers) {
             const [open, close]: [string, string] = skip.markers!;
             const regex: RegExp = new RegExp(escapeRegExp(open) + '(.*?)' + escapeRegExp(close), regexFlags);
             let i: number = 0;
@@ -231,7 +231,7 @@ export default class SerbianTransliteration {
 
         // Mark all words with english letters q, w, y & x
         workingText = workingText.replace(/\b\w+\b/g, (word) => {
-            if(containsEnglishLetter(word)) {
+            if (containsEnglishLetter(word)) {
                 skipReplacement.push(word);
                 return `${this.SKIP_PREFIX}WORD_${skipReplacement.length - 1}__`;
             }
@@ -239,7 +239,7 @@ export default class SerbianTransliteration {
             return word;
         });
 
-        if(handleSkipWords) {
+        if (handleSkipWords) {
             skip.words!.forEach((word) => {
                 // Word boundaries, global, case-sensitive or not
                 const regex: RegExp = new RegExp(
@@ -257,21 +257,21 @@ export default class SerbianTransliteration {
         let result: string = this.handleDigraphExceptions(workingText);
 
         // Handle digraphs
-        for(const [regexps, cyrillic] of this.digraphRegexps) {
+        for (const [regexps, cyrillic] of this.digraphRegexps) {
             result = result.replace(regexps, cyrillic);
         }
 
         let cyrillicResult: string = '';
         let i: number = 0;
 
-        while(i < result.length) {
+        while (i < result.length) {
             let nextMarker: number = result.indexOf(this.SKIP_PREFIX, i);
             
             // Don't transliterate placeholder, add it as-is
-            if(nextMarker === i) {
+            if (nextMarker === i) {
                 let end: number = result.indexOf('__', i + this.SKIP_PREFIX.length);
 
-                if(end !== -1) {
+                if (end !== -1) {
                     end += 2; // Because __
                     cyrillicResult += result.slice(i, end);
                     i = end;
@@ -280,7 +280,7 @@ export default class SerbianTransliteration {
             else {
                 const char = result[i];
 
-                if(char !== this.ZWNJ) {
+                if (char !== this.ZWNJ) {
                     cyrillicResult += this.latin2CyrillicMap[char] ?? char;
                 }
 
@@ -291,15 +291,15 @@ export default class SerbianTransliteration {
         result = cyrillicResult;
 
         // [Restore skip markers]
-        if(markerReplacement.length > 0) {
-            for(let i: number = 0; i < markerReplacement.length; i++) {
+        if (markerReplacement.length > 0) {
+            for (let i: number = 0; i < markerReplacement.length; i++) {
                 result = result.replace(`${this.SKIP_PREFIX}MARKER_${i}__`, markerReplacement[i]);
             }
         }
 
         // [Restore skip words]
-        if(skipReplacement.length > 0) {
-            for(let i: number = 0; i < skipReplacement.length; i++) {
+        if (skipReplacement.length > 0) {
+            for (let i: number = 0; i < skipReplacement.length; i++) {
                 result = result.replace(`${this.SKIP_PREFIX}WORD_${i}__`, skipReplacement[i]);
             }
         }
@@ -312,11 +312,11 @@ export default class SerbianTransliteration {
         let cyrillicChars: number = 0;
         let latinChars: number = 0;
 
-        for(const char of text) {
-            if(this.cyrillic2LatinMap[char] !== undefined) {
+        for (const char of text) {
+            if (this.cyrillic2LatinMap[char] !== undefined) {
                 cyrillicChars++;
             }
-            else if(this.latin2CyrillicMap[char] !== undefined) {
+            else if (this.latin2CyrillicMap[char] !== undefined) {
                 latinChars++;
             }
         }
@@ -344,7 +344,7 @@ export default class SerbianTransliteration {
      * SerbianTransliteration.isCyrillic("1234!?") // false
      */
     public static isCyrillic(text: string): boolean {
-        if(!text) {
+        if (!text) {
             return false;
         }
 
@@ -369,7 +369,7 @@ export default class SerbianTransliteration {
      * SerbianTransliteration.isLatin("1234!?") // false
      */
     public static isLatin(text: string): boolean {
-        if(!text) {
+        if (!text) {
             return false;
         }
 
@@ -389,14 +389,14 @@ export default class SerbianTransliteration {
      * SerbianTransliteration.autoTransliterate("Добар дан") // "Dobar dan"
      */
     public static autoTransliterate(text: string, options?: ToCyrillicOptions): string {
-        if(!text) {
+        if (!text) {
             return '';
         }
 
-        if(this.isCyrillic(text)) {
+        if (this.isCyrillic(text)) {
             return this.toLatin(text);
         }
-        else if(this.isLatin(text)) {
+        else if (this.isLatin(text)) {
             return this.toCyrillic(text, options);
         }
         

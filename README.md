@@ -102,7 +102,7 @@ try {
         'Ovaj <tag>deo</tag> se ne menja',
         { skip: { markers: ['<tag>', '<tag>'] } }
     );
-} catch(err) {
+} catch (err) {
     console.error(err); // The opening and closing markers cannot be the same.
 }
 ```
